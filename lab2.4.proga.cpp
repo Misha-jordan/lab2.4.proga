@@ -5,7 +5,32 @@
 #include <cstdlib>
 
 
+template<typename T>
+int FindSecondMaxIndex(T* arr, int size) 
+{
+    if (size < 2) 
+    {
+        std::cerr << "Array size should be at least 2.\n";
+        return -1;
+    }
 
+    int maxIndex = 0;
+    int secondMaxIndex = -1;
+    
+    for (int i = 1; i < size; ++i)
+    {
+        if (arr[i] > arr[maxIndex])
+        {
+            secondMaxIndex = maxIndex;
+            maxIndex = i;
+        }
+        else if ((secondMaxIndex == -1 || arr[i] > arr[secondMaxIndex]) && arr[i] < arr[maxIndex])
+        {
+            secondMaxIndex = i;
+        }
+    }
+
+}
 template <typename T>
 class Matrix {
 private:
@@ -124,17 +149,20 @@ int main() {
     std::cout << "Matrix 1 == Matrix 2: " << (mat1 == mat2) << "\n";
     std::cout << "Matrix 1 != Matrix 2: " << (mat1 != mat2) << "\n";
 
-    // Testing Vector 
-    Vector<int> vec1(3);
-    Vector<int> vec2(3);
-    vec1.fillRandom();
-    vec2.fillRandom();
-    std::cout << "Vector 1:\n" << vec1 << "\n";
-    std::cout << "Vector 2:\n" << vec2 << "\n";
-    Matrix<int> vecProd = vec1.vectorProduct(vec2);
-    std::cout << "Vector product of vectors:\n" << vecProd << "\n";
-    int scalarProd = vec1.scalarProduct(vec2);
-    std::cout << "Scalar product of vectors: " << scalarProd << "\n";
+  int intArr[] = { 3, 7, 2, 8, 5 };
+  float floatArr[] = { 1.3f, 9.7f, 4.2f, 5.8f, 3.1f };
+  double doubleArr[] = { 3.14, 2.71, 6.28, 1.61, 0.99 };
+  char charArr[] = { 'a', 'r', 'z', 'm', 'k' };
+
+  int intIndex = FindSecondMaxIndex(intArr, 5);
+  float floatIndex = FindSecondMaxIndex(floatArr, 5);
+  double doubleIndex = FindSecondMaxIndex(doubleArr, 5);
+  char charIndex = FindSecondMaxIndex(charArr, 5);
+
+  std::cout << "Index of the second maximum in int array: " << intIndex << std::endl;
+  std::cout << "Index of the second maximum in float array: " << floatIndex << std::endl;
+  std::cout << "Index of the second maximum in double array: " << doubleIndex << std::endl;
+  std::cout << "Index od the second maximum in char array: " << charIndex << std::endl;
 
     return 0;
 }
